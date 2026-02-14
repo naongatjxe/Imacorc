@@ -5,8 +5,6 @@ if [ ! -e "/dev/mapper/cryptroot" ]; then echo "Error: /dev/mapper/cryptroot doe
 
 mount -t btrfs -o subvol=@,compress=zstd /dev/mapper/cryptroot /mnt mkdir -p /mnt/home /mnt/var/log /mnt/boot mount -t btrfs -o subvol=@home,compress=zstd /dev/mapper/cryptroot /mnt/home mount -t btrfs -o subvol=@log,compress=zstd /dev/mapper/cryptroot /mnt/var/log
 
-EFI_PART=$(lsblk -o NAME,FSTYPE,MOUNTPOINT | grep -i vfat | awk '{print "/dev/" $1}') if [ -z "$EFI_PART" ]; then echo "Error: Could not detect EFI partition (vfat)" exit 1 fi mount "$EFI_PART" /mnt/boot
-
 arch-chroot /mnt /bin/bash <<'CHROOT_EOF'
 
 pacman -Sy --noconfirm grub btrfs-progs os-prober
