@@ -2,11 +2,11 @@
 
 Auto GRUB installer for iMac 2017 21-inch
 
-Btrfs root on LUKS, UEFI only
+Btrfs root on manually unlocked LUKS, UEFI only
 
 set -e
 
-=== 1. Skip LUKS unlock, assume it's already opened as /dev/mapper/cryptroot ===
+=== 1. Check that cryptroot is already opened ===
 
 if [ ! -e "/dev/mapper/cryptroot" ]; then echo "Error: /dev/mapper/cryptroot does not exist. Make sure LUKS is opened manually first." exit 1 fi
 
